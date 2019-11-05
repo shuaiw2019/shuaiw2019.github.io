@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>局部坐标系转换</title>
+<style type="text/css">
+body {
+	margin-left: 30px;
+	text-align: center;
+}
+</style>
+</head>
+<center>
+<body>
+<table width="1033" border="0">
+  <tbody>
+    <tr>
+      <th width="1093" height="120" bgcolor="#F0DCB6" style="font-size: 24px" scope="col">局部坐标系转换Transformation</th>
+    </tr>
+    <tr>
+      <td height="148" bgcolor="#8EC1D7"><p>
+        OpenSees中transformation的作用时将单元特性在整体坐标系中进行统一。 <br>
+       <strong>Transformation</strong><strong>有以下</strong><strong>3</strong><strong>类转换：</strong><strong> </strong><br>
+        1. Linear  Transformation （线性转换） <br>
+        2. PDelta  Transformation（考虑P -Δ效应的转换） <br>
+        3. Corotational  Transformation（旋转转换） <br>
+      今天讲最常用的线性转换，即<strong>geomTransf Linear</strong>命令。下面标黄部分是OpenSeesWiKi给出的transformation的命令流： </p></td>
+    </tr>
+    <tr>
+      <td height="177" bgcolor="#8EC1D7"><p><div align="center"><img src="tansformation.png" width="678" height="44" alt=""/></div></p>　<br>
+      <img src="tansformation2.png" width="1027" height="102" alt=""/>      <br>
+      上文翻译：X，Y，Z是向量vecxz的分量，向量vecxz用来定义局部坐标系中的x-z平面。y轴垂直于向量vecxz和x轴。用X，Y，Z定义一个平行于x-z平面的平面向量。<br>
+<br>
+WiKi对于向量的解释如下：<br>
+ <br>
+      <img src="tansformation3.png" width="1026" height="67" alt=""/><br>
+<br>
+      上文翻译：单个向量由两点组成，具有长度和方向，可以确定其空间位置。当用这个向量用于定义坐标轴时我们只关心它的方向。现在有两个不平行的向量Vr和Vs，可以定义一个平面，假设Vt垂直于这个平面，那么Vt=Vr×Vs。<br>
+<br>
+接着，WiKi对向量vecxz的定义如下：<br>
+<br>
+      <img src="transformation4.png" width="1026" height="91" alt=""/><br>
+<br>
+      上文翻译：x轴由两个节点连接确定（如图1所示），然后用户指定一个不平行于x轴的向量vecxz，此时，根据x轴和向量vecxz可以确定平面x-z。接着确定垂直于平面x-z的y轴（Vy=Vxz×Vx），最后垂直于x轴和y轴的方向即为z轴（Vz=Vx×Vy）。这样确定的y-z平面为单元的截面。<br>　<div align="center">
+        <p><img src="transformation5-1.png" width="370" height="244"><br>
+          <p><span style="text-align: center">图1  向量vecxz的定义</span> </p>
+          <p style="text-align: left">下面是WiKi给出的例子：</p>
+          <br>
+        </p>
+      </div>
+      <div align="center">
+  <img src="transformation6-1.png" width="341" height="454">　　　　<img src="transformation6-2.png" width="452" height="454"></div>
+<br>
+　　　　　　　　　　　图2  单元放置方向（注意长短边）　　　　　　　　　　　　　　　图3  x-z向量方向判别 <br>
+<br>
+以上是OpenSeesWiKi对transformation的说明，个人觉得不太容易理解。<br>
+<br>
+<strong>以下是我自己的判别方法，其实是将WiKi的解释化繁为简而已。</strong><br>
+<br>
+<strong>1. 确定截面的y - z轴；<br>
+<br>
+2. 连接两节点组成单元，此时局部x、y、z轴就确定了；<br>
+<br>
+3. 对比局部z轴与整体坐标系X、Y、Z，确定1或-1的位置（如图2中：单元1局部z轴与整体Z轴（负）一致，则转换坐标为（0 0 -1）；单元2局部z轴与整体Y轴一致，则转换坐标为（0 1 0））。</strong>
+<p>&nbsp; </p>
+      <p>&nbsp; </p></td>
+    
+    </tr>
+  </tbody>
+</table>
+</body>
+</center>
+</html>
